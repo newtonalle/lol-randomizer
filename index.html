@@ -1,15 +1,900 @@
 <!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Single Page Website</title>
-</head>
-
-<body>
-    <h1>Hello World!</h1>
-    <p>This is the content of my single HTML file.</p>
+<body style="background-color: black;">
+    <div style="color: white; text-align: center;">
+        <h1>Randomizador LOL</h1>
+        <button style="height: 100px; width: 300px; font-size: x-large;" onclick="randomChampion('adc')">Adc</button>
+        <button style="height: 100px; width: 300px; font-size: x-large" onclick="randomChampion('sup')">Sup</button>
+        <button style="height: 100px; width: 300px; font-size: x-large" onclick="randomChampion('mid')">Mid</button>
+        <button style="height: 100px; width: 300px; font-size: x-large" onclick="randomChampion('top')">Top</button>
+        <button style="height: 100px; width: 300px; font-size: x-large"
+            onclick="randomChampion('jungle')">Jungle</button>
+        <h3 id="chosenChampName"></h3>
+        <img id="chosenChampionImg" src="" alt="">
+        <h4 id="chosenChampTitle"></h4>
+    </div>
 </body>
 
-</html>
+<script>
+    var champions =
+        [
+            {
+                "name": "Aatrox",
+                "title": "the Darkin Blade",
+                "roles": ["top", "jungle"],
+            },
+            {
+                "name": "Ahri",
+                "title": "the Nine-Tailed Fox",
+                "roles": ["mid"],
+            },
+            {
+                "name": "Akali",
+                "roles": ["mid", "top"],
+                "title": "the Rogue Assassin",
+            },
+            {
+                "name": "Akshan",
+                "roles": ["mid"],
+                "title": "the Rogue Sentinel",
+            },
+            {
+                "name": "Alistar",
+                "roles": ["sup"],
+                "title": "the Minotaur",
+            },
+            {
+                "name": "Ambessa",
+                "title": "matriarch of War",
+                "roles": ["top", "jungle"],
+            },
+            {
+                "name": "Amumu",
+                "roles": ["jungle", "sup"],
+                "title": "the Sad Mummy",
+            },
+            {
+                "name": "Anivia",
+                "roles": ["mid", "top", "sup"],
+                "title": "the Cryophoenix",
+            },
+            {
+                "name": "Annie",
+                "roles": ["mid", "sup"],
+                "title": "the Dark Child",
+            },
+            {
+                "name": "Aphelios",
+                "roles": ["adc"],
+                "title": "the Weapon of the Faithful",
+            },
+            {
+                "name": "Ashe",
+                "roles": ["sup", "adc"],
+                "title": "the Frost Archer",
+            },
+            {
+                "name": "Aurelion Sol",
+                "roles": ["mid"],
+                "title": "The Star Forger",
+            },
+            {
+                "name": "Aurora",
+                "title": "the Witch Between Worlds (main do Pedro)",
+                "roles": ["mid", "top"],
+            },
+            {
+                "name": "Azir",
+                "roles": ["mid"],
+                "title": "the Emperor of the Sands",
+            },
+            {
+                "name": "Bard",
+                "roles": ["sup"],
+                "title": "the Wandering Caretaker",
+            },
+            {
+                "name": "Bel'Veth",
+                "roles": ["jungle"],
+                "title": "the Empress of the Void",
+            },
+            {
+                "name": "Blitzcrank",
+                "roles": ["sup"],
+                "title": "the Great Steam Golem",
+            },
+            {
+                "name": "Briar",
+                "roles": ["jungle"],
+                "title": "the Restrained Hunger",
+            },
+            {
+                "name": "Brand",
+                "roles": ["mid", "sup"],
+                "title": "the Burning Vengeance",
+            },
+            {
+                "name": "Braum",
+                "roles": ["sup"],
+                "title": "the Heart of the Freljord",
+            },
+            {
+                "name": "Caitlyn",
+                "roles": ["adc"],
+                "title": "the Sheriff of Piltover",
+            },
+            {
+                "name": "Camille",
+                "roles": ["top", "sup"],
+                "title": "the Steel Shadow",
+            },
+            {
+                "name": "Cassiopeia",
+                "roles": ["mid"],
+                "title": "the Serpent's Embrace",
+            },
+            {
+                "name": "Cho'Gath",
+                "roles": ["jungle", "sup", "top", "mid"],
+                "title": "the Terror of the Void",
+            },
+            {
+                "name": "Corki",
+                "roles": ["adc", "mid"],
+                "title": "the Daring Bombardier",
+            },
+            {
+                "name": "Darius",
+                "roles": ["jungle", "top"],
+                "title": "the Hand of Noxus",
+            },
+            {
+                "name": "Diana",
+                "roles": ["jungle", "mid"],
+                "title": "Scorn of the Moon",
+            },
+            {
+                "name": "Draven",
+                "roles": ["adc"],
+                "title": "the Glorious Executioner",
+            },
+            {
+                "name": "Dr. Mundo",
+                "roles": ["jungle", "top"],
+                "title": "the Madman of Zaun",
+            },
+            {
+                "name": "Ekko",
+                "roles": ["jungle", "mid"],
+                "title": "the Boy Who Shattered Time",
+            },
+            {
+                "name": "Elise",
+                "roles": ["jungle", "sup"],
+                "title": "the Spider Queen (dona aranha do João)",
+            },
+            {
+                "name": "Evelynn",
+                "roles": ["jungle"],
+                "title": "Agony's Embrace",
+            },
+            {
+                "name": "Ezreal",
+                "roles": ["adc"],
+                "title": "the Prodigal Explorer",
+            },
+            {
+                "name": "Fiddlesticks",
+                "roles": ["jungle", "sup"],
+                "title": "the Ancient Fear",
+            },
+            {
+                "name": "Fiora",
+                "roles": ["top"],
+                "title": "the Grand Duelist",
+            },
+            {
+                "name": "Fizz",
+                "roles": ["mid"],
+                "title": "the Tidal Trickster",
+            },
+            {
+                "name": "Galio",
+                "roles": ["mid", "sup"],
+                "title": "the Colossus",
+            },
+            {
+                "name": "Gangplank",
+                "roles": ["top", "mid"],
+                "title": "the Saltwater Scourge",
+            },
+            {
+                "name": "Garen",
+                "roles": ["top"],
+                "title": "The Might of Demacia",
+            },
+            {
+                "name": "Gnar",
+                "roles": ["top"],
+                "title": "the Missing Link",
+            },
+            {
+                "name": "Gragas",
+                "roles": ["jungle", "top", "mid"],
+                "title": "the Rabble Rouser",
+            },
+            {
+                "name": "Graves",
+                "roles": ["jungle"],
+                "title": "the Outlaw",
+            },
+            {
+                "name": "Gwen",
+                "roles": ["jungle", "top"],
+                "title": "The Hallowed Seamstress",
+            },
+            {
+                "name": "Hecarim",
+                "roles": ["jungle"],
+                "title": "the Shadow of War",
+            },
+            {
+                "name": "Heimerdinger",
+                "roles": ["mid", "top"],
+                "title": "the Revered Inventor",
+            },
+            {
+                "name": "Hwei",
+                "roles": ["mid", "sup", "adc"],
+                "title": "the Visionary",
+            },
+            {
+                "name": "Illaoi",
+                "roles": ["top"],
+                "title": "the Kraken Priestess",
+            },
+            {
+                "name": "Irelia",
+                "roles": ["top", "mid"],
+                "title": "the Blade Dancer",
+            },
+            {
+                "name": "Ivern",
+                "roles": ["jungle", "sup"],
+                "title": "the Green Father",
+            },
+            {
+                "name": "Janna",
+                "roles": ["sup"],
+                "title": "the Storm's Fury",
+            },
+            {
+                "name": "Jarvan IV",
+                "roles": ["jungle"],
+                "title": "the Exemplar of Demacia",
+            },
+            {
+                "name": "Jax",
+                "roles": ["jungle", "top"],
+                "title": "Grandmaster at Arms",
+            },
+            {
+                "name": "Jayce",
+                "roles": ["mid", "top"],
+                "title": "the Defender of Tomorrow",
+            },
+            {
+                "name": "Jhin",
+                "roles": ["adc"],
+                "title": "the Virtuoso",
+            },
+            {
+                "name": "Jinx",
+                "roles": ["adc"],
+                "title": "the Loose Cannon",
+            },
+            {
+                "name": "K'Sante",
+                "roles": ["top"],
+                "title": "the Pride of Nazumah",
+            },
+            {
+                "name": "Kai'Sa",
+                "roles": ["adc"],
+                "title": "Daughter of the Void",
+            },
+            {
+                "name": "Kalista",
+                "roles": ["adc"],
+                "title": "the Spear of Vengeance",
+            },
+            {
+                "name": "Karma",
+                "roles": ["mid", "sup"],
+                "title": "the Enlightened One",
+            },
+            {
+                "name": "Karthus",
+                "roles": ["jungle"],
+                "title": "the Deathsinger",
+            },
+            {
+                "name": "Kassadin",
+                "roles": ["mid"],
+                "title": "the Void Walker",
+            },
+            {
+                "name": "Katarina",
+                "roles": ["mid"],
+                "title": "the Sinister Blade",
+            },
+            {
+                "name": "Kayle",
+                "roles": ["top"],
+                "title": "the Righteous",
+            },
+            {
+                "name": "Kayn",
+                "roles": ["jungle"],
+                "title": "the Shadow Reaper",
+            },
+            {
+                "name": "Kennen",
+                "roles": ["top"],
+                "title": "the Heart of the Tempest",
+            },
+            {
+                "name": "Kha'Zix",
+                "roles": ["jungle"],
+                "title": "the Voidreaver",
+            },
+            {
+                "name": "Kindred",
+                "roles": ["jungle"],
+                "title": "The Eternal Hunters",
+            },
+            {
+                "name": "Kled",
+                "roles": ["top"],
+                "title": "the Cantankerous Cavalier",
+            },
+            {
+                "name": "Kog'Maw",
+                "roles": ["adc", "mid"],
+                "title": "the Mouth of the Abyss",
+            },
+            {
+                "name": "LeBlanc",
+                "roles": ["mid"],
+                "title": "the Deceiver",
+            },
+            {
+                "name": "Lee Sin",
+                "roles": ["jungle", "sup"],
+                "title": "the Blind Monk",
+            },
+            {
+                "name": "Leona",
+                "roles": ["sup"],
+                "title": "the Radiant Dawn",
+            },
+            {
+                "name": "Lillia",
+                "roles": ["jungle"],
+                "title": "the Bashful Bloom",
+            },
+            {
+                "name": "Lissandra",
+                "roles": ["mid"],
+                "title": "the Ice Witch",
+            },
+            {
+                "name": "Lucian",
+                "roles": ["adc"],
+                "title": "the Purifier",
+            },
+            {
+                "name": "Lulu",
+                "roles": ["sup"],
+                "title": "the Fae Sorceress",
+            },
+            {
+                "name": "Lux",
+                "roles": ["mid", "sup"],
+                "title": "the Lady of Luminosity",
+            },
+            {
+                "name": "Malphite",
+                "roles": ["top", "sup", "mid", "jungle"],
+                "title": "Shard of the Monolith",
+            },
+            {
+                "name": "Malzahar",
+                "roles": ["mid"],
+                "title": "the Prophet of the Void",
+            },
+            {
+                "name": "Maokai",
+                "roles": ["jungle", "sup"],
+                "title": "the Twisted Treant",
+            },
+            {
+                "name": "Master Yi",
+                "roles": ["jungle"],
+                "title": "the Wuju Bladesman",
+            },
+            {
+                "name": "Mel",
+                "roles": ["mid", "sup", "adc"],
+                "title": "the Soul's Reflection",
+            },
+            {
+                "name": "Milio",
+                "roles": ["sup"],
+                "title": "the Gentle Flame",
+            },
+            {
+                "name": "Miss Fortune",
+                "roles": ["adc"],
+                "title": "the Bounty Hunter",
+            },
+            {
+                "name": "Wukong",
+                "roles": ["jungle"],
+                "title": "the Monkey King",
+            },
+            {
+                "name": "Mordekaiser",
+                "roles": ["jungle", "top"],
+                "title": "the Iron Revenant",
+            },
+            {
+                "name": "Morgana",
+                "roles": ["mid", "sup"],
+                "title": "the Fallen",
+            },
+            {
+                "name": "Naafiri",
+                "roles": ["jungle"],
+                "title": "the Hound of a Hundred Bites",
+            },
+            {
+                "name": "Nami",
+                "roles": ["sup"],
+                "title": "the Tidecaller",
+            },
+            {
+                "name": "Nasus",
+                "roles": ["jungle", "top"],
+                "title": "the Curator of the Sands",
+            },
+            {
+                "name": "Nautilus",
+                "roles": ["sup"],
+                "title": "the Titan of the Depths",
+            },
+            {
+                "name": "Neeko",
+                "roles": ["jungle", "sup"],
+                "title": "the Curious Chameleon",
+            },
+            {
+                "name": "Nidalee",
+                "roles": ["jungle"],
+                "title": "the Bestial Huntress",
+            },
+            {
+                "name": "Nilah",
+                "roles": ["adc"],
+                "title": "the Joy Unbound",
+            },
+            {
+                "name": "Nocturne",
+                "roles": ["jungle"],
+                "title": "the Eternal Nightmare",
+            },
+            {
+                "name": "Nunu & Willump",
+                "roles": ["jungle"],
+                "title": "the Boy and His Yeti",
+            },
+            {
+                "name": "Olaf",
+                "roles": ["jungle", "top"],
+                "title": "the Berserker",
+            },
+            {
+                "name": "Orianna",
+                "roles": ["mid"],
+                "title": "the Lady of Clockwork",
+            },
+            {
+                "name": "Ornn",
+                "roles": ["top"],
+                "title": "The Fire below the Mountain",
+            },
+            {
+                "name": "Pantheon",
+                "roles": ["jungle", "sup", "mid", "top"],
+                "title": "the Unbreakable Spear",
+            },
+            {
+                "name": "Poppy",
+                "roles": ["sup", "top"],
+                "title": "Keeper of the Hammer",
+            },
+            {
+                "name": "Pyke",
+                "roles": ["sup"],
+                "title": "the Bloodharbor Ripper",
+            },
+            {
+                "name": "Qiyana",
+                "roles": ["jungle", "mid"],
+                "title": "Empress of the Elements",
+            },
+            {
+                "name": "Quinn",
+                "roles": ["top"],
+                "title": "Demacia's Wings",
+            },
+            {
+                "name": "Rakan",
+                "roles": ["sup"],
+                "title": "The Charmer",
+            },
+            {
+                "name": "Rammus",
+                "roles": ["jungle"],
+                "title": "Alright, Ok",
+            },
+            {
+                "name": "Rell",
+                "roles": ["sup"],
+                "title": "the Iron Maiden",
+            },
+            {
+                "name": "Rek'Sai",
+                "roles": ["jungle", "top"],
+                "title": "the Void Burrower",
+            },
+            {
+                "name": "Renekton",
+                "roles": ["top"],
+                "title": "the Butcher of the Sands",
+            },
+            {
+                "name": "Rengar",
+                "roles": ["jungle"],
+                "title": "the Pridestalker",
+            },
+            {
+                "name": "Riven",
+                "roles": ["top"],
+                "title": "the Exile",
+            },
+            {
+                "name": "Renata Glasc",
+                "roles": ["sup"],
+                "title": "the Chem-Baroness",
+            },
+            {
+                "name": "Rumble",
+                "roles": ["top"],
+                "title": "the Mechanized Menace",
+            },
+            {
+                "name": "Ryze",
+                "roles": ["mid", "top"],
+                "title": "the Rune Mage",
+            },
+            {
+                "name": "Samira",
+                "roles": ["adc"],
+                "title": "the Desert Rose",
+            },
+            {
+                "name": "Sejuani",
+                "roles": ["jungle", "sup"],
+                "title": "Fury of the North",
+            },
+            {
+                "name": "Senna",
+                "roles": ["adc", "sup"],
+                "title": "the Redeemer",
+            },
+            {
+                "name": "Seraphine",
+                "roles": ["mid", "sup"],
+                "title": "the Starry-Eyed Songstress",
+            },
+            {
+                "name": "Sett",
+                "roles": ["top"],
+                "title": "the Boss",
+            },
+            {
+                "name": "Shaco",
+                "roles": ["jungle", "sup"],
+                "title": "the Demon Jester",
+            },
+            {
+                "name": "Shen",
+                "roles": ["jungle", "top"],
+                "title": "the Eye of Twilight",
+            },
+            {
+                "name": "Shyvana",
+                "roles": ["jungle", "top"],
+                "title": "the Half-Dragon",
+            },
+            {
+                "name": "Singed",
+                "roles": ["top"],
+                "title": "the Mad Chemist",
+            },
+            {
+                "name": "Sion",
+                "roles": ["top"],
+                "title": "The Undead Juggernaut",
+            },
+            {
+                "name": "Sivir",
+                "roles": ["adc"],
+                "title": "the Battle Mistress",
+            },
+            {
+                "name": "Skarner",
+                "roles": ["jungle", "skarner"],
+                "title": "the Crystal Vanguard",
+            },
+            {
+                "name": "Smolder",
+                "roles": ["adc", "mid"],
+                "title": "the Fiery Fledgling",
+            },
+            {
+                "name": "Sona",
+                "roles": ["sup"],
+                "title": "Maven of the Strings",
+            },
+            {
+                "name": "Soraka",
+                "roles": ["sup"],
+                "title": "the Starchild",
+            },
+            {
+                "name": "Swain",
+                "roles": ["sup", "adc", "mid"],
+                "title": "the Noxian Grand General",
+            },
+            {
+                "name": "Sylas",
+                "roles": ["jungle", "mid", "top"],
+                "title": "the Unshackled",
+            },
+            {
+                "name": "Syndra",
+                "roles": ["mid"],
+                "title": "the Dark Sovereign",
+            },
+            {
+                "name": "Tahm Kench",
+                "roles": ["top", "sup"],
+                "title": "the River King",
+            },
+            {
+                "name": "Taliyah",
+                "roles": ["jungle", "mid"],
+                "title": "the Stoneweaver",
+            },
+            {
+                "name": "Talon",
+                "roles": ["jungle", "mid"],
+                "title": "the Blade's Shadow",
+            },
+            {
+                "name": "Taric",
+                "roles": ["sup"],
+                "title": "the Shield of Valoran",
+            },
+            {
+                "name": "Teemo",
+                "roles": ["jungle", "top"],
+                "title": "the Swift Scout",
+            },
+            {
+                "name": "Thresh",
+                "roles": ["sup"],
+                "title": "the Chain Warden",
+            },
+            {
+                "name": "Tristana",
+                "roles": ["adc"],
+                "title": "the Yordle Gunner",
+            },
+            {
+                "name": "Trundle",
+                "roles": ["jungle", "top"],
+                "title": "the Troll King",
+            },
+            {
+                "name": "Tryndamere",
+                "roles": ["jungle", "top"],
+                "title": "the Barbarian King",
+            },
+            {
+                "name": "Twisted Fate",
+                "roles": ["mid"],
+                "title": "the Card Master",
+            },
+            {
+                "name": "Twitch",
+                "roles": ["jungle", "adc"],
+                "title": "the Plague Rat",
+            },
+            {
+                "name": "Udyr",
+                "roles": ["jungle", "top"],
+                "title": "the Spirit Walker",
+            },
+            {
+                "name": "Urgot",
+                "roles": ["top"],
+                "title": "the Dreadnought",
+            },
+            {
+                "name": "Varus",
+                "roles": ["adc", "mid"],
+                "title": "the Arrow of Retribution",
+            },
+            {
+                "name": "Vayne",
+                "roles": ["adc", "top"],
+                "title": "the Night Hunter",
+            },
+            {
+                "name": "Veigar",
+                "roles": ["mid", "adc"],
+                "title": "the Tiny Master of Evil",
+            },
+            {
+                "name": "Vel'Koz",
+                "roles": ["mid", "sup"],
+                "title": "the Eye of the Void (Melhor boneco de todos)",
+            },
+            {
+                "name": "Vex",
+                "roles": ["mid"],
+                "title": "the Gloomist",
+            },
+            {
+                "name": "Vi",
+                "roles": ["jungle"],
+                "title": "the Piltover Enforcer",
+            },
+            {
+                "name": "Viego",
+                "roles": ["jungle"],
+                "title": "the Ruined King",
+            },
+            {
+                "name": "Viktor",
+                "roles": ["mid"],
+                "title": "the Machine Herald",
+            },
+            {
+                "name": "Vladimir",
+                "roles": ["mid", "top"],
+                "title": "the Crimson Reaper",
+            },
+            {
+                "name": "Volibear",
+                "roles": ["jungle", "top"],
+                "title": "the Relentless Storm",
+            },
+            {
+                "name": "Warwick",
+                "roles": ["jungle", "top"],
+                "title": "the Uncaged Wrath of Zaun",
+            },
+            {
+                "name": "Xayah",
+                "roles": ["adc"],
+                "title": "the Rebel",
+            },
+            {
+                "name": "Xerath",
+                "roles": ["sup", "mid"],
+                "title": "the Magus Ascendant",
+            },
+            {
+                "name": "Xin Zhao",
+                "roles": ["jungle"],
+                "title": "the Seneschal of Demacia",
+            },
+            {
+                "name": "Yasuo",
+                "roles": ["mid", "top"],
+                "title": "the Unforgiven",
+            },
+            {
+                "name": "Yone",
+                "roles": ["mid", "top"],
+                "title": "the Unforgotten",
+            },
+            {
+                "name": "Yorick",
+                "roles": ["jungle", "top"],
+                "title": "Shepherd of Souls",
+            },
+            {
+                "name": "Yunara",
+                "roles": ["adc"],
+                "title": "the Unbroken Faith",
+            },
+            {
+                "name": "Yuumi",
+                "roles": ["sup"],
+                "title": "the Magical Cat - a não véi ): ",
+            },
+            {
+                "name": "Zaahen",
+                "roles": ["jungle", "top"],
+                "title": "the Unsundered",
+            },
+            {
+                "name": "Zac",
+                "roles": ["jungle", "top"],
+                "title": "the Secret Weapon",
+            },
+            {
+                "name": "Zed",
+                "roles": ["jungle", "top", "mid"],
+                "title": "the Master of Shadows",
+            },
+            {
+                "name": "Ziggs",
+                "roles": ["mid", "adc"],
+                "title": "the Hexplosives Expert",
+            },
+            {
+                "name": "Zilean",
+                "roles": ["sup"],
+                "title": "the Chronokeeper",
+            },
+            {
+                "name": "Zeri",
+                "roles": ["adc"],
+                "title": "the Spark of Zaun",
+            },
+            {
+                "name": "Zoe",
+                "roles": ["mid", "sup"],
+                "title": "the Aspect of Twilight",
+            },
+            {
+                "name": "Zyra",
+                "roles": ["jungle", "sup"],
+                "title": "Rise of the Thorns",
+            }
+        ];
+
+    function randomChampion(selectedRole) {
+        let availableChampions = [];
+
+        champions.forEach(champion => { if (champion.roles.includes(selectedRole)) availableChampions.push(champion) });
+
+        let chosenChampion = availableChampions[Math.floor(Math.random() * availableChampions.length)];
+        document.getElementById("chosenChampName").textContent = chosenChampion.name;
+        document.getElementById("chosenChampTitle").textContent = chosenChampion.title;
+
+        let championIcon = `https://wiki.leagueoflegends.com/en-us/images/${chosenChampion.name.replaceAll(' ', '_').replaceAll("'", "%27")}_OriginalSquare.png`;
+
+        if (chosenChampion.name == "Nunu & Willump") {
+            championIcon = `https://wiki.leagueoflegends.com/en-us/images/Nunu_OriginalSquare.png`;
+        }
+
+        document.getElementById("chosenChampionImg").src = championIcon;
+    }
+</script>

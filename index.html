@@ -9,6 +9,7 @@
         <button style="height: 100px; width: 300px; font-size: x-large" onclick="randomChampion('top')">Top</button>
         <button style="height: 100px; width: 300px; font-size: x-large"
             onclick="randomChampion('jungle')">Jungle</button>
+        <button style="height: 100px; width: 300px; font-size: x-large" onclick="randomChampion('all')">All</button>
         <h3 id="chosenChampName"></h3>
         <img id="chosenChampionImg" src="" alt="">
         <h4 id="chosenChampTitle"></h4>
@@ -883,7 +884,10 @@
     function randomChampion(selectedRole) {
         let availableChampions = [];
 
-        champions.forEach(champion => { if (champion.roles.includes(selectedRole)) availableChampions.push(champion) });
+        if (selectedRole == "all") {
+            champions.forEach(champion => { availableChampions.push(champion) });
+        } else
+            champions.forEach(champion => { if (champion.roles.includes(selectedRole)) availableChampions.push(champion) });
 
         let chosenChampion = availableChampions[Math.floor(Math.random() * availableChampions.length)];
         document.getElementById("chosenChampName").textContent = chosenChampion.name;
